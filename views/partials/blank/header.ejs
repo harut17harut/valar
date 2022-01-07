@@ -1,0 +1,29 @@
+<head>
+    <title>Main page</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                const xhttp = new XMLHttpRequest();
+                let data;
+                xhttp.onload = function () {
+                    data = JSON.parse(this.responseText);
+                    let ride = `<b>RIDE/USDC</b></br>$ ${data.RU}</br><b>RIDE/EGLD</b></br>${data.RE}`;
+                    $("#autodata").html(ride);
+                }
+
+                xhttp.open("GET", "/data", true);
+                xhttp.send();
+            }, 2000);
+        });
+
+        function myFunction() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+    </script>
+</head>
