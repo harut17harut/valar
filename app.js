@@ -4,7 +4,7 @@ import path from  'path';
 import  {routes} from  './routes/index.js';
 import expressLayouts from 'express-ejs-layouts';
 
-const port = 3000;
+const port = process.env.PORT || 8080;
 const __dirname = path.resolve(path.dirname(''));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
