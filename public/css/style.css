@@ -1,0 +1,18 @@
+body {
+    background-color: white;
+    font-family: courier, serif;
+    color: black;
+    font-size: 38px;
+}
+
+.div label,
+.div input {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 2em;
+}
+
+.dark-mode {
+    background-color: #111222;
+    color: white;
+}
