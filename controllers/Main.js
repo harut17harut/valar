@@ -13,7 +13,7 @@ class Main {
     static index = async (req, res) => {
         let data = await this.data();
         let { ride, egld, usdc, egld2 } = data;
-        res.render('index', { data: { RU: (egld / ride * usdc / egld2).toPrecision(4), RE: (egld / ride).toPrecision(10) }, layout: 'layouts/blank' });
+        res.render('index', { data: { RU: (egld / ride * usdc / egld2).toPrecision(4), RE: (egld / ride).toPrecision(8) }, layout: 'layouts/blank' });
     }
     static transactionList = async (req, res) => {
         let list = await fetchJson.get("https://api.elrond.com/tokens/RIDE-7d18e9/transactions?status=success&size=100");
@@ -24,30 +24,15 @@ class Main {
             }
             return false;
           }, {count: 0});
-        let { ride, egld, usdc, egld2 } = await this.data();
+        let { ride, egld ,usdc,egld2} = await this.data();
         let RU = (egld / ride * usdc / egld2).toPrecision(4);
-
-        let data = "";
-        // for (const element of list) {
-
-        //     let amount = element.action.description;
-        //     let RU = (egld / ride * usdc / egld2).toPrecision(4);
-        //     let timestamp = element.timestamp;
-        //     let color;
-        //     if(element['action']['arguments']['token1']['ticker']=="RIDE"){
-        //         color = ".text-danger"
-        //     }else{
-        //         color=".text-success"
-        //     }
-        //     data+= `<li class="list-group-item bg-transparent ${color}">RIDE/USDC: $${RU} ${amount} ${timestamp}</li>`;
-        // }
 
         res.json({list,RU});
     }
     static getData = async (req, res) => {
         let data = await this.data();
         let { ride, egld, usdc, egld2 } = data;
-        res.json({ RU: (egld / ride * usdc / egld2).toPrecision(4), RE: (egld / ride).toPrecision(10) })
+        res.json({ RU: (egld / ride * usdc / egld2).toPrecision(4), RE: (egld / ride).toPrecision(6) })
     }
     static richList = async (req, res) => {
         let address = req.params.address;

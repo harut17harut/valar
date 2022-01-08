@@ -13,6 +13,6 @@ body {
 }
 
 .dark-mode {
-    background-color: #111222;
-    color: white;
+    background-color:#111222 !important;
+    color: white !important;
 }

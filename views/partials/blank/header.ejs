@@ -26,42 +26,42 @@
         function getTransactionList() {
             const xhttp = new XMLHttpRequest();
             let data;
-            
+
             xhttp.onload = function () {
 
                 data = JSON.parse(this.responseText);
                 let RU = data.RU;
-                let result="";
+                let result = "";
                 for (const element of data.list) {
-
-                    
-                    
-                    let timestamp = new Date(element.timestamp);
-                    timestamp = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
+                    var date = new Date(element.timestamp * 1000);
+                    var hours = date.getHours();
+                    var minutes = "0" + date.getMinutes();
+                    var seconds = "0" + date.getSeconds();
+                    var timestamp = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
                     let amount;
                     let color;
                     if (element['action']['arguments']['token1']['ticker'] == "RIDE") {
                         amount = element.action.description.split(" ")[1];
                         amount = amount.split(".");
-                        if(amount[1]){
-                          amount[1] =  amount[1].substring(0,2);
-                        }else{
+                        if (amount[1]) {
+                            amount[1] = amount[1].substring(0, 2);
+                        } else {
                             amount[1] = "00";
                         }
-                        
-                        amount = amount.join(".");
-                        
+
+                        amount = amount.join(",");
+
                         color = "text-danger"
                     } else {
                         amount = element.action.description.split(" ")[7];
                         amount = amount.split(".")
-                        if(amount[1]){
-                          amount[1] =  amount[1].substring(0,2);
-                        }else{
+                        if (amount[1]) {
+                            amount[1] = amount[1].substring(0, 2);
+                        } else {
                             amount[1] = "00";
                         }
-                        
-                        amount = amount.join(".");
+
+                        amount = amount.join(",");
 
                         color = "text-success"
                     }
@@ -70,7 +70,7 @@
                 $("#transactionlist").html(result);
             }
 
-            xhttp.open("GET", "/transactionlist",true);
+            xhttp.open("GET", "/transactionlist", true);
             xhttp.send();
         }
         function myFunction() {
