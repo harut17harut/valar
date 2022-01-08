@@ -1,28 +1,43 @@
-<center>
-    <div id="autodata"><i>loading...</i></div>
-    <hr />
-    <b>💸💸 RICHLIST 💸💸</b>
-    <br /><br />
-    <div class="div">
-        WALLET:<input name="txt1" type="text" id="txt1" onkeyup="showHint(this.value)" size="41" height="48px">
-        <br /><br />RANK: <span id="txtHint">...</span>
+<div class="container-fluid">
+    <div class="row">
+    <ul class="list-group col-2 bg-transparent b-0">
+        <li class="list-group-item bg-transparent">Cras justo odio</li>
+        <li class="list-group-item bg-transparent">Dapibus ac facilisis in</li>
+        <li class="list-group-item bg-transparent">Morbi leo risus</li>
+        <li class="list-group-item bg-transparent">Porta ac consectetur ac</li>
+        <li class="list-group-item bg-transparent">Vestibulum at eros</li>
+      </ul>
+    <div class="container col-10">
+        <center>
+            <div id="autodata"><i>loading...</i></div>
+            <hr />
+            <b>💸💸 RICHLIST 💸💸</b>
+            <br /><br />
+            <div class="div">
+                WALLET:<input name="txt1" type="text" id="txt1" onkeyup="showHint(this.value)" size="41" height="48px">
+                <br /><br />RANK: <span id="txtHint">...</span>
+            </div>
+            <hr />
+            <img src="/img/moon.png" height="100" title="Dark Mode" onclick="myFunction()" onmouseover=""
+                style="cursor: pointer;">
     </div>
-    <script>
+</div>
+</div>
 
-        function showHint(str) {
-            if (str.length == 0) {
-                document.getElementById("txtHint").innerHTML = "";
-                return;
-            }
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function () {
-                document.getElementById("txtHint").innerHTML =
-                    this.responseText;
-            }
-            xhttp.open("GET", "/richList/" + str);
-            xhttp.send();
+
+<script>
+
+    function showHint(str) {
+        if (str.length == 0) {
+            document.getElementById("txtHint").innerHTML = "";
+            return;
         }
-    </script>
-    <hr />
-    <img src="/img/moon.png" height="100" title="Dark Mode" onclick="myFunction()" onmouseover=""
-        style="cursor: pointer;">
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            document.getElementById("txtHint").innerHTML =
+                this.responseText;
+        }
+        xhttp.open("GET", "/richList/" + str);
+        xhttp.send();
+    }
+</script>
