@@ -35,7 +35,8 @@
                 for (const element of data.list) {
                     let amount = element.action.description.split(" ")[1];
                     
-                    let timestamp = element.timestamp;
+                    let timestamp = new Date(element.timestamp);
+                    timestamp = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
                     let color;
                     if (element['action']['arguments']['token1']['ticker'] == "RIDE") {
                         color = "text-danger"
