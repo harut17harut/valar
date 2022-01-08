@@ -1,24 +1,40 @@
 <div class="container-fluid">
     <div class="row">
-    <div class="container col-md-12 col-lg-10 col-xl-10 col-sm-12">
-        <center>
-            <div id="autodata"><i>loading...</i></div>
-            <hr />
-            <b>💸💸 RICHLIST 💸💸</b>
-            <br /><br />
-            <div class="div">
-                WALLET:<input name="txt1" type="text" id="txt1" onkeyup="showHint(this.value)" size="41" height="48px">
-                <br /><br />RANK: <span id="txtHint">...</span>
-            </div>
-            <hr />
-            <img src="/img/moon.png" height="100" title="Dark Mode" onclick="myFunction()" onmouseover=""
-                style="cursor: pointer;">
-    </div>
-    <ul class="list-group col-md-12 col-lg-2 col-xl-2 col-sm-12 bg-transparent b-0 " id="transactionlist">
-       
-    </ul>
+        <div class="container col-md-12 col-lg-9 col-xl-9 col-sm-12">
+            <center>
+                <div id="autodata"><i>loading...</i></div>
+                <hr />
+                <b>💸💸 RICHLIST 💸💸</b>
+                <br /><br />
+                <div class="div">
+                    WALLET:<input name="txt1" type="text" id="txt1" onkeyup="showHint(this.value)" size="41"
+                        height="48px">
+                    <br /><br />RANK: <span id="txtHint">...</span>
+                </div>
+                <hr />
+                <img src="/img/moon.png" height="100" title="Dark Mode" onclick="myFunction()" onmouseover=""
+                    style="cursor: pointer;">
+        </div>
+        <div class=" col-md-12 col-lg-3 col-xl-3 col-sm-12 bg-transparent b-0 p-0">
+            <table class="table table-borderless bg-transparent">
+                <thead>
+                    <tr>
+                        <th><small>RIDE/USDC</small></th>
+                        <th><small>Amount</small></th>
+                        <th><small>Time</small></th>
+                    </tr>
+                </thead>
+                <tbody id="transactionlist">
 
-</div>
+                </tbody>
+            </table>
+        </div>
+
+        <!--ul class="list-group col-md-12 col-lg-2 col-xl-2 col-sm-12 bg-transparent b-0 " id="transactionlist">
+       
+    </ul-->
+
+    </div>
 </div>
 
 

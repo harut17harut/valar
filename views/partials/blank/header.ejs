@@ -33,19 +33,41 @@
                 let RU = data.RU;
                 let result="";
                 for (const element of data.list) {
-                    let amount = element.action.description.split(" ")[1];
+
+                    
                     
                     let timestamp = new Date(element.timestamp);
                     timestamp = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
+                    let amount;
                     let color;
                     if (element['action']['arguments']['token1']['ticker'] == "RIDE") {
+                        amount = element.action.description.split(" ")[1];
+                        amount = amount.split(".");
+                        if(amount[1]){
+                          amount[1] =  amount[1].substring(0,2);
+                        }else{
+                            amount[1] = "00";
+                        }
+                        
+                        amount = amount.join(".");
+                        
                         color = "text-danger"
                     } else {
+                        amount = element.action.description.split(" ")[7];
+                        amount = amount.split(".")
+                        if(amount[1]){
+                          amount[1] =  amount[1].substring(0,2);
+                        }else{
+                            amount[1] = "00";
+                        }
+                        
+                        amount = amount.join(".");
+
                         color = "text-success"
                     }
-                    result += `<li class="list-group-item  pt-2 pb-2 bg-transparent ${color}"><small>RIDE/USDC: $${RU} ${amount} ${timestamp}</small></li>`;
+                    result += `<tr class="bg-transparent"><td class="${color}"><small>$${RU}</small></td><td><small>${amount}</small></td><td><small>${timestamp}</small></td></tr>`;
                 }
-                $(".list-group").html(result);
+                $("#transactionlist").html(result);
             }
 
             xhttp.open("GET", "/transactionlist",true);
