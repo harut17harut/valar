@@ -4,6 +4,7 @@ import { Main } from '../controllers/Main.js';
 
 route.get('/', Main.index);
 route.get('/data', Main.getData);
+route.get('/transactionlist', Main.transactionList);
 route.get('/richList/:address', Main.richList);
 export {
     route

@@ -3,7 +3,8 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <script>
         $(document).ready(function () {
@@ -13,14 +14,42 @@
                 xhttp.onload = function () {
                     data = JSON.parse(this.responseText);
                     let ride = `<b>RIDE/USDC</b></br>$ ${data.RU}</br><b>RIDE/EGLD</b></br>${data.RE}`;
+                    document.title = `RIDE/EGLD | ${data.RE}`;
                     $("#autodata").html(ride);
                 }
 
                 xhttp.open("GET", "/data", true);
                 xhttp.send();
+                getTransactionList();
             }, 2000);
         });
+        function getTransactionList() {
+            const xhttp = new XMLHttpRequest();
+            let data;
+            
+            xhttp.onload = function () {
 
+                data = JSON.parse(this.responseText);
+                let RU = data.RU;
+                let result="";
+                for (const element of data.list) {
+                    let amount = element.action.description.split(" ")[1];
+                    
+                    let timestamp = element.timestamp;
+                    let color;
+                    if (element['action']['arguments']['token1']['ticker'] == "RIDE") {
+                        color = "text-danger"
+                    } else {
+                        color = "text-success"
+                    }
+                    result += `<li class="list-group-item  pt-2 pb-2 bg-transparent ${color}"><small>RIDE/USDC: $${RU} ${amount} ${timestamp}</small></li>`;
+                }
+                $(".list-group").html(result);
+            }
+
+            xhttp.open("GET", "/transactionlist",true);
+            xhttp.send();
+        }
         function myFunction() {
             var element = document.body;
             element.classList.toggle("dark-mode");

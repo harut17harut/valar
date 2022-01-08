@@ -3,13 +3,9 @@ class Main {
     static data = async () => {
         let rideegld = await fetchJson.get("https://gateway.elrond.com/address/erd1qqqqqqqqqqqqqpgqav09xenkuqsdyeyy5evqyhuusvu4gl3t2jpss57g8x/esdt");
         let egldusdc = await fetchJson.get("https://gateway.elrond.com/address/erd1qqqqqqqqqqqqqpgqeel2kumf0r8ffyhth7pqdujjat9nx0862jpsg2pqaq/esdt");
-        //console.log(rideegld);
-
 
         let ride = rideegld['data']['esdts']['RIDE-7d18e9']['balance'].slice(0, -18);
         let egld = rideegld['data']['esdts']['WEGLD-bd4d79']['balance'].slice(0, -18);
-
-
         let usdc = egldusdc['data']['esdts']['USDC-c76f1f']['balance'].slice(0, -6);
         let egld2 = egldusdc['data']['esdts']['WEGLD-bd4d79']['balance'].slice(0, -18);
         return { ride, egld, usdc, egld2 };
@@ -17,12 +13,36 @@ class Main {
     static index = async (req, res) => {
         let data = await this.data();
         let { ride, egld, usdc, egld2 } = data;
-
-
-
-        //echo '<b>RIDE/EGLD</b>', '<br>';
-        //echo round($egld / $ride,9);
         res.render('index', { data: { RU: (egld / ride * usdc / egld2).toPrecision(4), RE: (egld / ride).toPrecision(10) }, layout: 'layouts/blank' });
+    }
+    static transactionList = async (req, res) => {
+        let list = await fetchJson.get("https://api.elrond.com/tokens/RIDE-7d18e9/transactions?status=success&size=100");
+        list = list.filter(function(item) {
+            if (this.count < 20 && item.action.name=="swap" && item.action.description) {
+              this.count++;
+              return true;
+            }
+            return false;
+          }, {count: 0});
+        let { ride, egld, usdc, egld2 } = await this.data();
+        let RU = (egld / ride * usdc / egld2).toPrecision(4);
+
+        let data = "";
+        // for (const element of list) {
+
+        //     let amount = element.action.description;
+        //     let RU = (egld / ride * usdc / egld2).toPrecision(4);
+        //     let timestamp = element.timestamp;
+        //     let color;
+        //     if(element['action']['arguments']['token1']['ticker']=="RIDE"){
+        //         color = ".text-danger"
+        //     }else{
+        //         color=".text-success"
+        //     }
+        //     data+= `<li class="list-group-item bg-transparent ${color}">RIDE/USDC: $${RU} ${amount} ${timestamp}</li>`;
+        // }
+
+        res.json({list,RU});
     }
     static getData = async (req, res) => {
         let data = await this.data();
