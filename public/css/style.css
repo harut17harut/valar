@@ -1,18 +1,98 @@
+@font-face {
+  font-family: "Valar Regular";
+  src: url("/font/valar-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Valar Medium";
+  src: url("/font/valar-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Valar SemiBold";
+  src: url("/font/valar-SemiBold.woff2") format("woff2");
+}
+
 body {
     background-color: white;
-    font-family: courier, serif;
-    color: black;
-    
+	font-family: 'Valar Regular', courier, sans-serif;
+    color: #212121;
+}
+
+.link-success {
+	text-decoration: none;
 }
 
 .div label,
 .div input {
     display: inline-block;
     vertical-align: middle;
-    line-height: 2em;
+    line-height: 1.5em;
 }
 
 .dark-mode {
-    background-color:#111222 !important;
-    color: white !important;
+    background-color: #161A1E !important;
+    color: #e1e1e1 !important;
+}
+
+.svg {
+	filter: invert(1);
+}
+
+.svg2 {
+	filter: invert(0);
+}
+
+.th-price {
+	color: #848e9c;
+	font-size: 12px;
+	min-width: 80px;
+	text-align: left;
+	padding: 8px 0px;
+}
+
+.th-amount {
+	color: #848e9c;
+	font-size: 12px;
+	min-width: 80px;
+	text-align: right;
+	padding: 8px 0px;
+}
+
+.th-time {
+	color: #848e9c;
+	font-size: 12px;
+	min-width: 80px;
+	text-align: right;
+	padding: 8px 0px;
+}
+
+.td-green {
+	color: #0ecb81;
+	cursor: pointer;
+	font-size: 13px;
+	min-width: 80px;
+	text-align: left;
+}
+
+.td-red {
+	color: #f6465d;
+	cursor: pointer;
+	font-size: 13px;
+	min-width: 80px;
+	text-align: left;
+}
+
+.td-amount {
+	cursor: pointer;
+	font-size: 13px;
+	min-width: 80px;
+	text-align: right;
+}
+
+.td-timestamp {
+	cursor: pointer;
+	font-size: 13px;
+	min-width: 80px;
+	text-align: right;
 }
