@@ -1,0 +1,98 @@
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="/css/style.css" rel="stylesheet">
+	<title>holorıde</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                const xhttp = new XMLHttpRequest();
+                let data;
+                xhttp.onload = function () {
+                    data = JSON.parse(this.responseText);
+                    let ride = `<b>RIDE/USDC</b></br>${data.RU}</br></br><b>RIDE/EGLD</b></br>${data.RE}`;
+                    document.title = `${data.RE} | RIDE/EGLD`;
+                    $("#autodata").html(ride);
+                }
+
+                xhttp.open("GET", "/ride/data", true);
+                xhttp.send();
+                getTransactionList();
+            }, 3000);
+        });
+        function getTransactionList() {
+            const xhttp = new XMLHttpRequest();
+            let data;
+
+            xhttp.onload = function () {
+
+                data = JSON.parse(this.responseText);
+                let RU = data.RU;
+                let result = "";
+                for (const element of data.list) {
+                    var date = new Date(element.timestamp * 1000);
+                    var hours = date.getHours();
+                    var minutes = "0" + date.getMinutes();
+                    var seconds = "0" + date.getSeconds();
+                    var timestamp = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                    let amount;
+                    let color;
+                    if (element['action']['arguments']['token1']['ticker'] == "RIDE") {
+                        amount = element.action.description.split(" ")[1];
+                        amount = amount.split(".");
+                        if (amount[1]) {
+                            amount[1] = amount[1].substring(0, 2);
+                        } else {
+                            amount[1] = "00";
+                        }
+
+                        amount = amount.join(".");
+
+                        color = "td-red"
+                    } else {
+                        amount = element.action.description.split(" ")[7];
+                        amount = amount.split(".")
+                        if (amount[1]) {
+                            amount[1] = amount[1].substring(0, 2);
+                        } else {
+                            amount[1] = "00";
+                        }
+
+                        amount = amount.join(".");
+
+                        color = "td-green"
+                    }
+                    result += `<tr><td class="${color}">${RU}</td><td class="td-amount">${amount}</td><td class="td-timestamp">${timestamp}</td></tr>`;
+                }
+                $("#transactionlist").html(result);
+            }
+
+            xhttp.open("GET", "ride/transactionlist", true);
+            xhttp.send();
+        }
+        function myFunction() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+		function myFunction2() {
+			 var element = document.getElementById("social");
+			 element.classList.toggle("svg2");
+		}
+		function myFunction3() {
+			 var element = document.getElementById("social2");
+			 element.classList.toggle("svg2");
+		}
+    </script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-VX760GBJJW"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-VX760GBJJW');
+	</script>
+  </head>
